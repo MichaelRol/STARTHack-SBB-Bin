@@ -13,8 +13,18 @@ import android.view.Window;
 import android.view.WindowManager;
 import org.json.JSONException;
 import org.json.JSONObject;
-import android.util.Log;
 
+import java.io.IOException;
+
+import android.util.Log;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import org.json.*;
 
 import java.io.IOException;
 
@@ -65,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
                 request(contents);
                 scanCode(theView);
                //s startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(contents)));
+
             }
 
         }
