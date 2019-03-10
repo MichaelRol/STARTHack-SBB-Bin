@@ -17,7 +17,16 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 import android.util.Log;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import org.json.*;
 
+import java.io.IOException;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -30,7 +39,7 @@ import org.json.*;
 
 public class MainActivity extends AppCompatActivity {
 
-
+    public View theView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,20 +48,21 @@ public class MainActivity extends AppCompatActivity {
 
     /** Called when the user taps the Send button */
     public void scanCode(View view) {
-        try {
+        theView = view;
+            try {
 
-            Intent intent = new Intent("com.google.zxing.client.android.SCAN");
-            intent.putExtra("SCAN_MODE", "QR_CODE_MODE"); // "PRODUCT_MODE for bar codes
+                Intent intent = new Intent("com.google.zxing.client.android.SCAN");
+                intent.putExtra("SCAN_MODE", "QR_CODE_MODE"); // "PRODUCT_MODE for bar codes
 
-            startActivityForResult(intent, 0);
+                startActivityForResult(intent, 0);
 
-        } catch (Exception e) {
+            } catch (Exception e) {
 
-            Uri marketUri = Uri.parse("market://details?id=com.google.zxing.client.android");
-            Intent marketIntent = new Intent(Intent.ACTION_VIEW, marketUri);
-            startActivity(marketIntent);
+                Uri marketUri = Uri.parse("market://details?id=com.google.zxing.client.android");
+                Intent marketIntent = new Intent(Intent.ACTION_VIEW, marketUri);
+                startActivity(marketIntent);
 
-        }
+            }
     }
 
     @Override
@@ -63,7 +73,9 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 String contents = data.getStringExtra("SCAN_RESULT");
                 request(contents);
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(contents)));
+                scanCode(theView);
+               //s startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(contents)));
+
             }
 
         }
