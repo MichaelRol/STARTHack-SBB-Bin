@@ -61,14 +61,14 @@ public class MainActivity extends AppCompatActivity {
 
             if (resultCode == RESULT_OK) {
                 String contents = data.getStringExtra("SCAN_RESULT");
-                
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(contents)));
+                request(contents);
+               //s startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(contents)));
             }
 
         }
     }
 
-    public void request() {
+    public void request(String content) {
         Log.d("HELLO", "request() called");
         // Create okhttp3 request builder.
         Request.Builder builder = new Request.Builder();
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         // Create request object.
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
         char q = '"';
-        String jsonBody = "{"+q+"user_id"+q+":"+q+"USER_123456"+q+"}";
+        String jsonBody = "{"+q+"cup_id"+q+":"+q+content+q+"}";
         Log.d("HELLO",jsonBody);
         String header = "hello world";
 
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
         Request request = new Request.Builder()
                 .url("https://bxmbrpyq1h.execute-api.eu-west-2.amazonaws.com/Dev/dbupdate")
-                .put(body) //PUT
+                .delete(body) //PUT
                 .addHeader("Authorization", header)
                 .build();
 
